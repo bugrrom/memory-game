@@ -8,42 +8,42 @@ export type stopGame = {
   type: typeof STOP_GAME;
 };
 
-export const DISABLED_CART = "DISABLED_CART";
-export type disabledCart = {
-  type: typeof DISABLED_CART;
+export const DISABLED_CARD = "DISABLED_CARD";
+export type disabledCard = {
+  type: typeof DISABLED_CARD;
 };
 
-export const ADD_OPEN_CART = "ADD_OPEN_CART";
-export type addOpenCart = {
-  type: typeof ADD_OPEN_CART;
+export const ADD_OPEN_CARD = "ADD_OPEN_CARD";
+export type addOpenCard = {
+  type: typeof ADD_OPEN_CARD;
   payload: string;
 };
 
-export const ADD_OPEN_CARTS = "ADD_OPEN_CARTS";
-export type addOpenCarts = {
-  type: typeof ADD_OPEN_CARTS;
+export const ADD_OPEN_CARDS = "ADD_OPEN_CARDS";
+export type addOpenCards = {
+  type: typeof ADD_OPEN_CARDS;
   payload: any;
 };
 
-export const ADD_CARTS = "ADD_CARTS";
-export type addCarts = {
-  type: typeof ADD_CARTS;
+export const ADD_CARDS = "ADD_CARDS";
+export type addCards = {
+  type: typeof ADD_CARDS;
   payload: string[];
 };
 
-export const RESET_OPEN_CARTS = "RESET_OPEN_CARTS";
-export type resetOpenCarts = {
-  type: typeof RESET_OPEN_CARTS;
+export const RESET_OPEN_CARDS = "RESET_OPEN_CARDS";
+export type resetOpenCards = {
+  type: typeof RESET_OPEN_CARDS;
 };
 
-export const RESET_OPEN_CART = "RESET_OPEN_CART";
-export type resetOpenCart = {
-  type: typeof RESET_OPEN_CART;
+export const RESET_OPEN_CARD = "RESET_OPEN_CARD";
+export type resetOpenCard = {
+  type: typeof RESET_OPEN_CARD;
 };
 
-export const UPDATE_OPEN_CART = "UPDATE_OPEN_CART";
-export type updateOpenCart = {
-  type: typeof UPDATE_OPEN_CART;
+export const UPDATE_OPEN_CARD = "UPDATE_OPEN_CARD";
+export type updateOpenCard = {
+  type: typeof UPDATE_OPEN_CARD;
   payload: any;
 };
 
@@ -52,14 +52,21 @@ export type updateWin = {
   type: typeof UPDATE_WIN;
 };
 
+export const SET_TIMER_ID = "SET_TIMER_ID";
+export type setTimerId = {
+  type: typeof SET_TIMER_ID;
+  payload: number;
+};
+
 export type actionGame =
   | updateWin
-  | disabledCart
+  | disabledCard
   | startGame
   | stopGame
-  | updateOpenCart
-  | addOpenCart
-  | addOpenCarts
-  | resetOpenCart
-  | addCarts
-  | resetOpenCarts;
+  | updateOpenCard
+  | addOpenCard
+  | addOpenCards
+  | resetOpenCard
+  | addCards
+  | resetOpenCards
+  | setTimerId;

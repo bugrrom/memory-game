@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../init/rootReducer";
 import { useEffect } from "react";
-import { generateCart, updateWin } from "../action";
+import { generateCard, updateWin } from "../action";
 import { addNewUser, resetUser } from "../../homeScreen/action";
 import { generateCards } from "../../../utils/generateCards";
 import { icons } from "../icon";
@@ -13,7 +13,7 @@ export const useGameScreen = () => {
   );
   useEffect(() => {
     //@ts-ignore
-    if (openCards.length === 18 && !win) {
+    if (openCards.length === 1 && !win) {
       dispatch(updateWin());
       setTimeout(() => {
         dispatch(addNewUser());
@@ -22,10 +22,11 @@ export const useGameScreen = () => {
     }
   }, [openCards]);
   useEffect(() => {
-    dispatch(generateCart(generateCards(icons)));
+    dispatch(generateCard(generateCards(icons)));
   }, []);
   return {
     carts,
     isRunning,
+    win
   };
 };

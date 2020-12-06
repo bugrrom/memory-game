@@ -1,39 +1,42 @@
 import {
   actionGame,
-  ADD_CARTS,
-  ADD_OPEN_CART,
-  ADD_OPEN_CARTS,
-  DISABLED_CART,
-  RESET_OPEN_CART,
-  RESET_OPEN_CARTS,
+  ADD_CARDS,
+  ADD_OPEN_CARD,
+  ADD_OPEN_CARDS,
+  DISABLED_CARD,
+  RESET_OPEN_CARD,
+  RESET_OPEN_CARDS,
+  SET_TIMER_ID,
   START_GAME,
-  UPDATE_OPEN_CART,
+  UPDATE_OPEN_CARD,
   UPDATE_WIN,
 } from "./types";
 
 const initialState = {
   carts: [],
   openCards: [],
-  openCart: "",
+  openCard: "",
   isRunning: false,
   disabled: false,
   win: false,
+  timerId: 0,
 };
 
 type typeState = {
   carts: { name: string; open: boolean; id: number }[];
-  openCart: string;
+  openCard: string;
   openCards: string[];
   isRunning: boolean;
   disabled: boolean;
   win: boolean;
+  timerId: number;
 };
 export const gameReducer = (
   state: typeState = initialState,
   action: actionGame
 ) => {
   switch (action.type) {
-    case DISABLED_CART:
+    case DISABLED_CARD:
       return {
         ...state,
         disabled: !state.disabled,
@@ -43,12 +46,12 @@ export const gameReducer = (
         ...state,
         isRunning: true,
       };
-    case ADD_OPEN_CART:
+    case ADD_OPEN_CARD:
       return {
         ...state,
-        openCart: action.payload,
+        openCard: action.payload,
       };
-    case UPDATE_OPEN_CART:
+    case UPDATE_OPEN_CARD:
       return {
         ...state,
         carts: state.carts.map((el) => {
@@ -62,23 +65,23 @@ export const gameReducer = (
           }
         }),
       };
-    case ADD_OPEN_CARTS:
+    case ADD_OPEN_CARDS:
       return {
         ...state,
         openCards: [...state.openCards, action.payload],
       };
-    case ADD_CARTS:
+    case ADD_CARDS:
       return {
         ...state,
         carts: action.payload,
       };
-    case RESET_OPEN_CART:
+    case RESET_OPEN_CARD:
       return {
         ...state,
-        openCart: "",
+        openCard: "",
       };
 
-    case RESET_OPEN_CARTS:
+    case RESET_OPEN_CARDS:
       return {
         ...state,
         openCards: [],
@@ -87,6 +90,11 @@ export const gameReducer = (
       return {
         ...state,
         win: true,
+      };
+    case SET_TIMER_ID:
+      return {
+        ...state,
+        timerId: action.payload,
       };
     default:
       return state;

@@ -13,7 +13,6 @@ export const WrapperMenu = styled.div`
   display: flex;
   margin-right: 20px;
   flex-direction: column;
-  border: solid black 1px;
   align-items: center;
   justify-content: center;
 `;
@@ -50,4 +49,15 @@ export const Button = styled.button`
     opacity: 0.5;
     cursor: context-menu;
   }
+`;
+
+export const WinText = styled.p`
+  font-size: 30px;
+  color: white;
+`;
+
+export const StartGameText = styled.p`
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
 `;

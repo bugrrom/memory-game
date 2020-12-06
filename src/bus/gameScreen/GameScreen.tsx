@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Cart } from "./cart/Cart";
-import { Button, Container, WrapperGame, WrapperMenu } from "./gameScreenStyle";
+import {Button, Container, StartGameText, WinText, WrapperGame, WrapperMenu} from "./gameScreenStyle";
 import { Icon } from "../../utils/icons";
 import { useDispatch } from "react-redux";
 import { startGame } from "./action";
@@ -9,7 +9,7 @@ import { useGameScreen } from "./hooks/useGameScreen";
 
 export const GameScreen: FC = () => {
   const dispatch = useDispatch();
-  const { carts, isRunning } = useGameScreen();
+  const { carts, isRunning, win } = useGameScreen();
   /*const { carts, openCards, isRunning, win } = useSelector(
     (state: AppState) => state.game
   );
@@ -30,7 +30,7 @@ export const GameScreen: FC = () => {
     dispatch(startGame());
   };
   //@ts-ignore
-  const gameDashboard = carts.map((el, index) => (
+  const gameDashboard = carts.map((el) => (
     <Cart open={el.open} key={el.id} name={el}>
       {Icon(el, "100%")}
     </Cart>
@@ -38,7 +38,12 @@ export const GameScreen: FC = () => {
   return (
     <Container>
       <WrapperGame>
-        {isRunning ? gameDashboard : <p>Приятной игры</p>}
+        {isRunning ? (
+          gameDashboard
+        ) : (
+          <StartGameText>Приятной игры</StartGameText>
+        )}
+        {win ? <WinText>Победа! Поздравляю</WinText> : null}
       </WrapperGame>
       <WrapperMenu>
         <Button disabled={isRunning} onClick={toStart}>

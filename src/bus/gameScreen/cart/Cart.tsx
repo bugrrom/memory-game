@@ -1,7 +1,7 @@
-import React, { FC, ReactNode, useEffect, useState } from "react";
+import React, { FC, ReactNode } from "react";
 import { BackEnd, Container, FrontFace } from "./cartStyle";
 import { useDispatch, useSelector } from "react-redux";
-import { addCart, resetOpenCart } from "../action";
+import { addCard } from "../action";
 import { AppState } from "../../../init/rootReducer";
 
 type typeProps = {
@@ -12,20 +12,31 @@ type typeProps = {
 
 export const Cart: FC<typeProps> = ({ children, name, open }: typeProps) => {
   const dispatch = useDispatch();
-  const { openCards, openCart, disabled } = useSelector(
+  const { openCards, openCard, disabled } = useSelector(
     (state: AppState) => state.game
   );
+  const { id } = openCard;
   const flipCart = () => {
     if (!disabled) {
-      // @ts-ignore
-      if (openCards.indexOf(name.name) === -1) {
-        dispatch(addCart(name));
+      if (id !== name.id) {
+        // @ts-ignore
+        if (openCards.indexOf(name.name) === -1) {
+          dispatch(addCard(name));
+        }
       }
     }
   };
+
+  const icons =
+    // @ts-ignore
+    openCards.indexOf(name.name) === -1 ? (
+      <FrontFace>{children}</FrontFace>
+    ) : (
+      <FrontFace></FrontFace>
+    );
   return (
     <Container onClick={flipCart}>
-      {open ? <FrontFace>{children}</FrontFace> : <BackEnd></BackEnd>}
+      {open ? icons : <BackEnd></BackEnd>}
     </Container>
   );
 };

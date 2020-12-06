@@ -28,5 +28,10 @@ export const BackEnd = styled.div`
   height: 100%;
   position: absolute;
   border-radius: 5px;
-  background: black;
+  background: linear-gradient(
+    329deg,
+    rgba(131, 58, 180, 1) 0%,
+    rgba(242, 108, 108, 1) 50%,
+    rgba(252, 176, 69, 1) 100%
+  );
 `;

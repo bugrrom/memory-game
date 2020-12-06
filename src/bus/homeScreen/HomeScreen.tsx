@@ -41,7 +41,7 @@ export const HomeScreen: FC = () => {
                 {(msg) => <ErrorMessages msg={msg} />}
               </ErrorMessage>
             </InputWrapper>
-            <Button type="submit">Submit</Button>
+            <Button type="submit">Вперед</Button>
           </Form>
         </Formik>
       </NameForm>

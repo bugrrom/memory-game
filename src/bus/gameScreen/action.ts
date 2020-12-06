@@ -1,40 +1,41 @@
 import {
-  ADD_CARTS,
-  ADD_OPEN_CART,
-  ADD_OPEN_CARTS,
-  DISABLED_CART,
-  RESET_OPEN_CART,
+  ADD_CARDS,
+  ADD_OPEN_CARD,
+  ADD_OPEN_CARDS,
+  DISABLED_CARD,
+  RESET_OPEN_CARD,
+  SET_TIMER_ID,
   START_GAME,
   STOP_GAME,
-  UPDATE_OPEN_CART,
+  UPDATE_OPEN_CARD,
   UPDATE_WIN,
 } from "./types";
 import { Dispatch } from "redux";
 
-export const addOpenCart = (name: {
+export const addOpenCard = (name: {
   name: string;
   open: boolean;
   id: number;
 }) => {
-  return { type: ADD_OPEN_CART, payload: name };
+  return { type: ADD_OPEN_CARD, payload: name };
 };
 
-export const generateCart = (carts: string[]) => {
+export const generateCard = (carts: string[]) => {
   return {
-    type: ADD_CARTS,
+    type: ADD_CARDS,
     payload: carts,
   };
 };
 
-export const resetOpenCart = () => {
+export const resetOpenCard = () => {
   return {
-    type: RESET_OPEN_CART,
+    type: RESET_OPEN_CARD,
   };
 };
 
-export const addCarts = (name: string) => {
+export const addCards = (name: string) => {
   return {
-    type: ADD_OPEN_CARTS,
+    type: ADD_OPEN_CARDS,
     payload: name,
   };
 };
@@ -45,19 +46,19 @@ export const startGame = () => {
   };
 };
 
-export const disabledCart = () => {
+export const disabledCard = () => {
   return {
-    type: DISABLED_CART,
+    type: DISABLED_CARD,
   };
 };
 
-export const updateCarts = (name: {
+export const updateCards = (name: {
   name: string;
   open: boolean;
   id: number;
 }) => {
   return {
-    type: UPDATE_OPEN_CART,
+    type: UPDATE_OPEN_CARD,
     payload: name,
   };
 };
@@ -68,32 +69,56 @@ export const updateWin = () => {
   };
 };
 
-export const addCart = (cart: { name: string; open: boolean; id: number }) => (
+export const setTimerId = (payload: any) => {
+  return {
+    type: SET_TIMER_ID,
+    payload,
+  };
+};
+
+export const addCard = (card: { name: string; open: boolean; id: number }) => (
   dispatch: Dispatch,
   getState: any
 ) => {
   const { game } = getState();
-  dispatch(updateCarts(cart));
-  if (game.openCart) {
-    if (game.openCart.name !== cart.name) {
+  const { openCard, openCards, timerId } = game;
+  dispatch(updateCards(card));
+  // Тамер закрытия первой карты
+  if (!openCard) {
+    const timer = setTimeout(() => {
+      dispatch(updateCards(card));
+      dispatch(resetOpenCard());
+    }, 5000);
+    dispatch(setTimerId(timer));
+  } else {
+    clearTimeout(timerId);
+  }
+  // таймер закрытия
+  if (openCard) {
+    if (openCard.name !== card.name) {
       setTimeout(() => {
-        dispatch(updateCarts(game.openCart));
-        dispatch(updateCarts(cart));
-        dispatch(resetOpenCart());
-        dispatch(disabledCart());
-      }, 3000);
-      dispatch(disabledCart());
+        dispatch(updateCards(openCard));
+        dispatch(updateCards(card));
+        dispatch(resetOpenCard());
+        dispatch(disabledCard());
+      }, 1000);
+      dispatch(disabledCard());
     } else {
-      dispatch(resetOpenCart());
+      dispatch(resetOpenCard());
     }
   }
-  if (game.openCart.name === cart.name) {
-    if (game.openCards.length === 0) {
-      dispatch(addCarts(cart.name));
-    } else if (game.openCards.indexOf(cart.name) === -1) {
-      dispatch(addCarts(cart.name));
+  //проверка на совпадение
+  if (openCard.name === card.name && openCard.id !== card.id) {
+    if (openCards.length === 0) {
+      setTimeout(() => {
+        dispatch(addCards(card.name));
+      }, 1000);
+    } else if (openCards.indexOf(card.name) === -1) {
+      setTimeout(() => {
+        dispatch(addCards(card.name));
+      }, 1000);
     }
   } else {
-    dispatch(addOpenCart(cart));
+    dispatch(addOpenCard(card));
   }
 };

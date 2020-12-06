@@ -6,10 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx src/",
-    "test": "jest",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src/"
   },
   "author": "",
   "license": "ISC",

@@ -13,7 +13,7 @@ export const useGameScreen = () => {
   );
   useEffect(() => {
     //@ts-ignore
-    if (openCards.length === 1 && !win) {
+    if (openCards.length === 18 && !win) {
       dispatch(updateWin());
       setTimeout(() => {
         dispatch(addNewUser());
